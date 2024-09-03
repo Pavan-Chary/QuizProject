@@ -8,7 +8,8 @@ const userSchema = new mongoose.Schema({
     },
     email:{
         type:String,
-        required:true
+        required:true,
+        unique:true
     },
     password:{
         type:String,
@@ -16,17 +17,23 @@ const userSchema = new mongoose.Schema({
     }
 })
 const quizSchema = new mongoose.Schema({
-    
+    quiz_name :{
+        type:String,
+        required:true,
+    },
+    createdby:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"users"
+    }
 })
 const questionSchema = new mongoose.Schema({
     quiz_id:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:""
+        ref:"quizs"
     },
     description:{
         type:String,
         required:true,
-        unique:true,
     },
     options:{
         type:[{
@@ -42,5 +49,7 @@ const questionSchema = new mongoose.Schema({
 });
 
 const questions = mongoose.model("quizQuestion",questionSchema);
+const users = mongoose.model("users",userSchema);
+const quiz = mongoose.model("quiz",quizSchema);
 
-module.exports={questions};
+module.exports={questions,users,quiz};

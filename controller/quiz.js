@@ -14,7 +14,6 @@ async function returnToHome(req,res){
 
 async function postQuestion(req,res){
     const ques = req.body;
-    console.log(req.cookies.quId);
     await questions.create({
         quiz_id:req.cookies.quId,
         description:ques.description,
@@ -53,7 +52,7 @@ try{
         return res.json({msg:"name already exists",quId:""})
     }
 }catch{
-    console.log("sent")
+    
     return res.json({msg:"Please login"});
 }
 }
@@ -62,10 +61,8 @@ async function handleLogin(req,res){
     let email = req.body.email;
     let password = req.body.password
     let user =  await users.findOne({email,password});
-    console.log("hello",user);
     if(user){
         res.cookie("uid",setUser(user));
-        console.log("token",setUser(user));
         return res.json({msg:"Login Successfull"});
     }
     return res.json({msg:"Not a valid"})

@@ -72,10 +72,8 @@ async function showUser(req,res){
     try
     {
         const createdby = res.user.id;
-        console.log(createdby);
         const ques = await quiz.find({createdby});
         const name = res.user.name;
-        console.log(ques);
         return res.json({msg:"sucess",name:name,questions:ques});
     }
     catch

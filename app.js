@@ -10,8 +10,7 @@ const PORT = process.env.PORT || 8000;
 
 const app = express();
 connectToMongo(process.env.MONGO_URL)
-.then(()=>console.log("Connected to db.."))
-.catch(()=>console.log("Error at connecting to db.."));
+.then(()=>console.log("Connected to db.."));
 app.use(express.static("build"));
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*'); // Allow requests from any origin
